@@ -22,7 +22,15 @@ with write access to the Container Registry
 ./kleaner.sh myregistry 7d
 ```
 
+## Why Kleaner?
+The more images you push to a Container Registry, the more usage it will incur.
+Over time, this can add up to a significant amount of money. This is especially
+true if you are using a private Container Registry. This is why it is important
+to clean up the Container Registry from time to time.
+
 ## Caveats
+- The script only works with Azure Container Registries.
+- The Container Registry must exclusively be used to host images for the Kubernetes cluster.
 - The `date` command in the script only works on macOS.
 
 ## Disclaimer
