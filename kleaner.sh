@@ -56,7 +56,7 @@ function get_images() {
 
 
     registry_host=$registry.azurecr.io
-    echo $deployments $deploymentsinitcont $statefulsets $statefulsetsinitcont $cronjobs $cronjobsinitcont $jobs $jobsinitcont $daemonsets $daemonsetsinitcont $replicasets $replicationcontrollers $pods | tr ' ' '\n' | grep "$registry_host" | sort | uniq
+    echo $deployments $deploymentsinitcont $statefulsets $statefulsetsinitcont $cronjobs $cronjobsinitcont $jobs $jobsinitcont $daemonsets $daemonsetsinitcont $replicasets $replicasetsinitcont $replicationcontrollers $replicationcontrollersinitcont $pods $podsinitcont | tr ' ' '\n' | grep "$registry_host" | sort | uniq
 }
 
 function get_registry_usage() {
