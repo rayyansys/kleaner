@@ -38,16 +38,25 @@ function get_images() {
     # Run the following with access to the cluster
     # get list of all images in the cluster
     deployments=`kubectl get deployments --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    deploymentsinitcont=`kubectl get deployments --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     statefulsets=`kubectl get statefulsets --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    statefulsetsinitcont=`kubectl get statefulsets --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     cronjobs=`kubectl get cronjobs --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.jobTemplate.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    cronjobsinitcont=`kubectl get cronjobs --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.jobTemplate.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     jobs=`kubectl get jobs --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    jobsinitcont=`kubectl get jobs --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     daemonsets=`kubectl get daemonsets --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    daemonsetsinitcont=`kubectl get daemonsets --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     replicasets=`kubectl get replicasets --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    replicasetsinitcont=`kubectl get replicasets --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     replicationcontrollers=`kubectl get replicationcontrollers --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.containers[*].image}{end}{"\n"}'`
+    replicationcontrollersinitcont=`kubectl get replicationcontrollers --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.template.spec.initContainers[*].image}{end}{"\n"}'`
     pods=`kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.containers[*].image}{end}{"\n"}'`
+    podsinitcont=`kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.spec.initContainers[*].image}{end}{"\n"}'`
+
 
     registry_host=$registry.azurecr.io
-    echo $deployments $statefulsets $cronjobs $jobs $daemonsets $replicasets $replicationcontrollers $pods | tr ' ' '\n' | grep "$registry_host" | sort | uniq
+    echo $deployments $deploymentsinitcont $statefulsets $statefulsetsinitcont $cronjobs $cronjobsinitcont $jobs $jobsinitcont $daemonsets $daemonsetsinitcont $replicasets $replicasetsinitcont $replicationcontrollers $replicationcontrollersinitcont $pods $podsinitcont | tr ' ' '\n' | grep "$registry_host" | sort | uniq
 }
 
 function get_registry_usage() {
